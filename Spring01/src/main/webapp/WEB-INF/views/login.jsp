@@ -10,20 +10,28 @@
 <h1>
 	Login
 </h1>
+<form method=get action="/edu/doLogin" id=frmLogin>
 <table>
 			<tr>
 				<td>아이디 : </td>
-				<td><input type=text name=name id=name></td>
+				<td><input type=text name=userid id=userid value="${userid}" } ></td>
 			</tr>
 			<tr>
 				<td>비밀번호 : </td>
-				<td><input type=text name=age id=age></td>
+				<td><input type=password name=password id=password value="${password}" }></td>
 			</tr>
 			<tr>
-			<td><input type=button value='로그인'> </td>
-			<td><input type=button value='취소'> </td>
+			<td><input type=submit value='로그인'> </td>
+			<td><input type=reset value='취소' onclick='document.location=/edu/'> </td>
+			
 			</tr>
 </table>
-<img src="animal/cat1.jfif" width='500px'>
+</form>
+<img src="animal/cat1.jfif" width='300px'>
+<a href=/edu/signon>회원가입</a>
 </body>
+<script src='https://code.jquery.com/jquery-3.5.0.js'></script>
+<script>
+
+</script>
 </html>
