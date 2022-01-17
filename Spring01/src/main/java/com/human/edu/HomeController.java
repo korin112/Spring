@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,16 +42,18 @@ public class HomeController {
 	public String login() {
 		return "login";	// JSP file name
 	}
-	@RequestMapping("/doLogin")
-	public String doLogin(HttpServletRequest hsr,Model model) {
-		String userid=hsr.getParameter("userid");
-		if(userid.equals("")) {
+	@RequestMapping("/doLogin/{id}/{pw}")
+	public String doLogin(@PathVariable("id") String id,
+						  @PathVariable("pw") String pw, Model model) {
+		if(id.equals("")) {
 			return "login";
 		} else {
-		model.addAttribute("id", userid);
+		model.addAttribute("userid", id);
+		model.addAttribute("passcode", pw);
 		return "home";
 		}
 	}
+	
 	@RequestMapping("/")
 	public String home() {
 		return "home";	// JSP file name
@@ -59,14 +63,11 @@ public class HomeController {
 		return "signon";	// JSP file name
 	}
 	@RequestMapping("/signon_check")
-	public String signcheck(HttpServletRequest hsr,Model model) {
-		String name=hsr.getParameter("realname");
-		if(name.equals("")) {	
-		return "signon";
-		} else {
-			return "login";
+	/* modelattribute 쓰면클래스이름을 따로 잡을 수 있음 */
+	public String signcheck(@ModelAttribute("m") Member member) { 
+	return "personal";
 		}
-	}
+	
 //	@RequestMapping("/signon_check")
 //	public String signcheck(HttpServletRequest hsr,Model model) {
 //		String name=hsr.getParameter("realname");

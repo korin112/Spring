@@ -6,8 +6,17 @@
 <meta charset="UTF-8">
 <title>signon</title>
 </head>
+<style>
+table{
+	border-collapse:collapse;
+	border:1px solid black;
+}
+td{
+	border:1px solid black;
+}
+</style>
 <body>
-<form method=GET action="/edu/signon_check">
+<form method=post action="/edu/signon_check">
 		<table align=center>
 			<tr>
 				<td align=left>실명</td>
