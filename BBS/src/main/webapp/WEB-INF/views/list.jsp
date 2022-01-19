@@ -13,8 +13,8 @@ td, th{
 	border:1px solid black;
 }
 </style>
-<body>
-	<table style="border-collapse:collapse">
+<body align=center>
+	<table style="border-collapse:collapse" align=center>
 		<thead>
 			<tr>
 				<th>게시물번호</th>
