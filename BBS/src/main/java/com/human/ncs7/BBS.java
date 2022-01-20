@@ -30,7 +30,7 @@ public class BBS {
 		Ibbs bbs=sqlSession.getMapper(Ibbs.class);
 		bbs.plusHit(id);	//조회수 증가
 		Post post=bbs.getView(id);	//게시물 내용 가져오기
-		model.addAttribute("post",post);
+		model.addAttribute("post",post); // post를 실어서 출력하려함
 		return "view";
 	}
 	@RequestMapping("/delete")

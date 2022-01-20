@@ -6,7 +6,7 @@
 <select id="getList" resultType="com.human.ncs7.Post">
 	select id,name,title,content,created,hit,kind,step,indent from mvc_board order by id
 </select>
-<select id="getView" resultType="com.human.ncs7.Post">
+<select id="getView" resultType="com.human.ncs7.Post">	<!-- select는 return값이 있는거라서 resultType써줘야댐 -->
 	select id,name,title,content,created,hit,kind,step,indent
 	from mvc_board
 	where id=#{param1}

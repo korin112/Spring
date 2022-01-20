@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.cafe.iCafe"> <!-- <-있어야 인터페이스가 여길 찾음 인터페이스 이름 써야댐 -->
+<select id="getMenuList" resultType="com.human.cafe.Menu"> <!-- DTO클래스 이름 써야댐 Menu.java -->
+select code,name,price from menu order by code
+</select>
+</mapper>

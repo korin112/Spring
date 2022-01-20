@@ -13,6 +13,7 @@ td, th{
 }
 </style>
 <body align=center>
+<!-- $.ajax(url:'/modify',data:{post_id:$('#post_id).val,title:$('#title').val(),name:$('#name'),val(),content:$('#content')) -->
 <form method=post action='/ncs7/modify' id=frmModify>
 <input type=hidden id=post_id name=post_id value="${post.id}"> <!-- //view.jsp 실행시킬 때 id값으로 post를찾았는데 --> 
 <table style="border-collapse:collapse" align=center>

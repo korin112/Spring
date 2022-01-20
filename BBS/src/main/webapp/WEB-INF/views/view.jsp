@@ -45,7 +45,7 @@ $(document)
 })
 .on('click','#btnDelete',function(){
 	if(confirm('정말로 지우시겠습니까?')){
-		document.location='/ncs7/delete?id='+$('#post_id').val();
+		document.location='/ncs7/delete?id='+$('#post_id').val(); //url:'/delete',data:{id:$('#post_id').val()})
 	}
 return false;
 })
