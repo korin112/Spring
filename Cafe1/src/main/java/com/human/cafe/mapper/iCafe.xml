@@ -3,6 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.human.cafe.iCafe"> <!-- <-있어야 인터페이스가 여길 찾음 인터페이스 이름 써야댐 -->
+
 <select id="getMenuList" resultType="com.human.cafe.Menu"> <!-- DTO클래스 이름 써야댐 Menu.java -->
 select code,name,price from menu order by code
 </select>
@@ -17,7 +18,31 @@ delete from menu where code=#{param1}
 
 <insert id="insertMenu">
 insert into menu values(seq_menu.nextval,#{param1},#{param2})
-
 </insert>
+
+<insert id="insertSales">
+insert into cafesales(code,menu_code,qty,price,sold_time,mobile) values
+(seq_menucode.nextval,#{param1},#{param2},#{param3},to_char(sysdate,'YYYYMMDDHHMI'),${param4})
+</insert>
+
+<select id="getSales" resultType="com.human.cafe.Cafesales">
+select a.mobile, b.name, a.qty, a.price, a.sold_time 
+from cafesales a, menu b
+where a.menu_code=b.code
+order by sold_time desc
+</select>
+
+<select id="salesMenu" resultType="com.human.cafe.Sales">  <!-- 메뉴별 매출 -->
+select b.name,sum(a.price) as total
+from cafesales a,menu b
+where a.menu_code=b.code 
+group by b.name order by b.name
+</select>
+
+<select id="salesMobile" resultType="com.human.cafe.Sales">	<!-- 고객별 매출 -->
+select mobile as name,sum(price) as total 
+from cafesales
+group by mobile order by mobile
+</select>
 
 </mapper>

@@ -46,8 +46,12 @@
 		</td>
 		<td style='border:1px solid black;' valign=top>
 			<table>
-			<tr style='height:30px;'><td align=center>매출내역</td></tr>
-			<tr><td><select id=selSales style='width:224px;' size=17></select></td></tr>
+			<tr style='height:30px;'><td align=center>매출내역&nbsp;&nbsp;&nbsp;&nbsp;<button id=btnSummary>Summary</button></td></tr>
+			<tr><td><select id=selSales style='width:224px;' size=17>
+<c:forEach var="sales" items="${sl}"> 	
+		<option>${sales.mobile}, ${sales.name}, x${sales.qty}, ${sales.price}, ${sales.sold_time}</option>		
+</c:forEach>
+			</select></td></tr>
 			</table>
 		</td>	
 	</tr>
@@ -69,11 +73,52 @@
 </tr>
 </table>
 </div>
+<div style="display:none" id=dlgSales>
+<table>
+<tr>
+	<td>
+		<select style='width:200px' size=10 id=salesMenu> <!-- 메뉴별 매출 -->
+
+		</select>
+	</td>
+	<td>
+		<select style='width:200px' size=10 id=salesMobile> <!-- 고객별 매출 -->
+
+		</select>
+	</td>
+</table>
+</div>
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script>
 $(document)
+.on('click','#btnSummary',function(){
+	$('#dlgSales').dialog({
+		title:'매출 요약(메뉴별/고객별)',
+		modal:true,
+		width:500,
+		open:function(){
+			$.post("/cafe/salesMenu",{},function(txt){ // toString 한게 function(txt)로 들어감 객체로 구성된 배열이 들음
+				$('#salesMenu').empty();
+			
+				for(i=0; i<txt.length; i++){
+					let str='<option>'+txt[i]['name']+', '+txt[i]['total']+'</option>';
+					$('#salesMenu').append(str);
+				}
+			},'json');
+				$.post("/cafe/salesMobile",{},function(txt){
+					$('#salesMobile').empty();
+					console.log(txt);
+					for(i=0; i<txt.length; i++){
+						let str='<option>'+txt[i]['mobile']+', '+txt[i]['total']+'</option>';
+						$('#salesMobile').append(str);
+					}
+				},'json');	
+		},
+	});	
+})
+
 .on('click','#btnOrder',function(){
 	if($('#mobile').val()==''){
 		if(confirm('모바일번호를 입력하시겠습니까?')) return false;
@@ -82,10 +127,14 @@ $(document)
 	$('#selOrder option').each(function(){
 		let str='<option>'+$('#mobile').val()+' '+$(this).text()+'</option>';	
 		$('#selSales').append(str);
+	str=$(this).text();
+	let ar=str.split(' ');
+	let oParam={mobile:$('#mobile').val(),menu_code:$(this).val(),
+				qty:ar[1].substr(1),price:ar[2]};
+	$.post('/cafe/insertSales',oParam,function(txt){
+		if(txt=='ok'){} else{}
+		},'text');
 	});
-	$('#total,#mobile').val('');
-	$('#selOrder').empty();
-	//AJAX호출로 DB에 주문내역 저장
 	return false;
 })
 
@@ -98,7 +147,7 @@ $(document)
 })
 
 .on('click','#btnAdd',function(){
-	let str='<option value='+$('#code').val+'>'+$('#menuname').val()+' x'+$('#qty').val()+' '+$('#price').val()+'</option>';
+	let str='<option value='+$('#code').val()+'>'+$('#menuname').val()+' x'+$('#qty').val()+' '+$('#price').val()+'</option>';
 	$('#selOrder').append(str);
 	$('#code,#menuname,#price,#net,#qty').val('');
 	getSum();
@@ -205,7 +254,6 @@ function loadMenu(selTarget){	//중복되는 코드를 한 묶음으로 만듦
 			let mo=txt[i];
 			let str='<option value='+mo['code']+'>'+mo['name']+','+mo['price']+'</option>';
 			$('#'+selTarget).append(str);
-			
 		}
 	},'json'); //'json' 타입으로 보내줘야됨
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cafe.iCafe;	//interface import해줘야됨
-
+import com.human.cafe.Cafesales;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -30,10 +30,12 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home( Model model) {
 		iCafe cafe=sqlSession.getMapper(iCafe.class);	//interface에서 찾아오는거임
+		model.addAttribute("ml",cafe.getMenuList());
+		model.addAttribute("sl",cafe.getSales());
+		return "home";
+		
 //		cafe.getMenuList(); // return값 = arraylist로 옴
 //		ArrayList<Menu> ml=cafe.getMenuList();
-		model.addAttribute("ml",cafe.getMenuList());
-		return "home";
 	}
 	@ResponseBody	// return "data" 원래는 return jsp파일이지만 responsebody가 붙으면 data를 return한다는 말.
 	@RequestMapping(value="/list",method=RequestMethod.POST,
@@ -106,9 +108,61 @@ public class HomeController {
 		return retval;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/insertSales",method=RequestMethod.POST,
+					produces="application/json;charset=utf-8")
+	public String insertSales(HttpServletRequest hsr) {
+		String retval="";
+		try {
+			
+		int menu_code=Integer.parseInt(hsr.getParameter("menu_code"));
+		int qty=Integer.parseInt(hsr.getParameter("qty"));
+		int price=Integer.parseInt(hsr.getParameter("price"));
+		String mobile=hsr.getParameter("mobile");
+		
+		iCafe cafe=sqlSession.getMapper(iCafe.class);
+		cafe.insertSales(menu_code, qty, price, mobile);
+		retval="ok";
+		} catch(Exception e){
+			retval="fail";
+		}
+		return retval;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/salesMenu",method=RequestMethod.POST,
+					produces="application/json;charset=utf-8")
+	public String salesMenu() {
+			iCafe cafe=sqlSession.getMapper(iCafe.class);
+			ArrayList<Sales> ml=cafe.salesMenu();
+			JSONArray ja=new JSONArray();	
+			for(int i=0; i<ml.size(); i++) {
+				JSONObject jo=new JSONObject();
+				jo.put("name",ml.get(i).getName());
+				jo.put("total",ml.get(i).getTotal());
+				ja.add(jo);
+		}
+		return ja.toString();		//json array를 문자열로 만들어라, json format data
+		
+	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/salesMobile",method=RequestMethod.POST,
+					produces="application/json;charset=utf-8")
+	public String salesMobile() {
+			iCafe cafe=sqlSession.getMapper(iCafe.class);
+			ArrayList<Sales> ml=cafe.salesMobile();
+			JSONArray ja=new JSONArray();	
+			for(int i=0; i<ml.size(); i++) {
+				JSONObject jo=new JSONObject();
+				jo.put("mobile",ml.get(i).getName());
+				jo.put("total",ml.get(i).getTotal());
+				ja.add(jo);
+		}
+		return ja.toString();		//json array를 문자열로 만들어라, json format data
+		
+	}
+
 	
 	
 	
