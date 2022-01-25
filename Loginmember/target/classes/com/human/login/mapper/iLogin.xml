@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.login.iMember">
+
+<insert id="insertLogin">
+insert into member(name,gender,userid,passcode,interest) values(#{param1},#{param2},#{param3},#{param4},#{param5})
+</insert>
+
+<!-- <update id="updateLogin">
+
+</update>
+
+<select id="selectLogin">
+
+</select> -->
+
+<select id="signchk" resultType="com.human.login.Login1">
+select userid from member
+</select>
+</mapper>
