@@ -17,7 +17,7 @@ td{
 }
 </style>
 <body>
-<form method=post action="/login/insertLogin">
+<form method="post" action="/login/insertLogin">
 		<table align=center>
 			<tr>
 				<td align=left>실명</td>
@@ -33,7 +33,7 @@ td{
 			<tr>
 				<td align=left>로그인아이디</td>
 				<td align=left><input type=text id=userid name=userid></td>
-				<td><input type=button id=btnsign name=btnsign value='중복확인'></td>
+				<td><input type=button id=btnsign name=btnsign value=중복확인></td>
 			</tr>
 			<tr>
 				<td align=left>비밀번호</td>
@@ -70,15 +70,52 @@ td{
 <script>
 $(document)
 .on('click','#btnsign',function(){
-	$.post("/login/signchk",{},function(txt){
-		console.log(txt);
-		for(let i=0; i<txt.length; i++){
-			if($('userid').val()==txt[i]['userid']){
-				alert('중복');
-				return false;
+	$.post("/login/sign_check",{},function(txt){
+	console.log(txt);
+	let flag="";
+		for(var i=0; i<txt.length; i++){
+			if($('#userid').val()==txt[i]['userid']){
+				flag="ok";
+				break;
+			}
+			else{
+				flag="fail";
 			}
 		}
+		if(flag=="ok"){
+			alert("중복된 아이디입니다");
+		} else{
+			alert("사용가능한 아이디입니다");
+		}
 	},'json');
+})
+
+.on('submit',function(){
+	if ($('#name').val() == '') {
+		alert('이름을 확인해주세요.');
+		return false;
+	} else if ($('input[name=gender]:checked').val() == undefined) {
+		alert('성별을 체크해주세요');
+		return false;
+	}else if ($('#userid').val() == '') {
+		alert('로그인아이디를 확인해주세요')
+		return false;
+	} else if ($('#passcode').val() == '') {
+		alert('비밀번호를 확인해주세요')
+		return false;
+	} else if ($('#passcode1').val() == '') {
+		alert('비밀번호확인을 확인해주세요')
+		return false;
+	} else if ($('#passcode').val() != $('#passcode1').val()) {
+		alert('비밀번호가 같지 않습니다');
+		return false;
+	} else if ($('input[name=interest]:checked').val() == undefined) {
+		alert('관심분야를 확인해주세요');
+		return false;
+	}else {
+		alert('회원가입이 완료되었습니다.');
+		return true; 
+	}
 })
 
 </script>
