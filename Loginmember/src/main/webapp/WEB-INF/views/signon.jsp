@@ -68,6 +68,7 @@ td{
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 <script>
+let flag2='';
 $(document)
 .on('click','#btnsign',function(){
 	$.post("/login/sign_check",{},function(txt){
@@ -84,6 +85,7 @@ $(document)
 		}
 		if(flag=="ok"){
 			alert("중복된 아이디입니다");
+			flag2='false';
 		} else{
 			alert("사용가능한 아이디입니다");
 		}
@@ -91,6 +93,10 @@ $(document)
 })
 
 .on('submit',function(){
+	if(flag2=='false'){
+		alert('아이디 중복확인');
+		return false;
+	}
 	if ($('#name').val() == '') {
 		alert('이름을 확인해주세요.');
 		return false;
