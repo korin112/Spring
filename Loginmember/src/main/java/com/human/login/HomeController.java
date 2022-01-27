@@ -50,7 +50,7 @@ public class HomeController {
 			for (int i = 0; i < interest1.length; i++) {
 				interest += interest1[i];
 			}
-
+			
 			iMember member = sqlSession.getMapper(iMember.class);
 			member.insertLogin(name, gender, userid, passcode, interest);
 		} catch (Exception e) {
