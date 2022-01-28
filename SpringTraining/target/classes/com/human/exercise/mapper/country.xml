@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.exercise.iCountry"> <!-- interface name -->
+
+<select id="getCountryList" resultType="com.human.exercise.Country"> <!-- 리턴되는 데이터의 형태에 관한거 integer,string일수도잇고 큰 덩어리를 받아올거면 클래스로 받아올거임 이게 DTO임 DTO는 select랑 일함-->
+select country_id,country_iso_code,country_name,country_region
+from countries
+order by country_id desc
+
+</select>
+
+</mapper>

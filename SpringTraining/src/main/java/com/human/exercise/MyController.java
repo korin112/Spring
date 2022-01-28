@@ -1,7 +1,11 @@
 package com.human.exercise;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +13,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MyController {
+	@Autowired
+	private SqlSession sqlSession;	//servlet-context bean에 있는 내용이 딸려들어감 db에 관해 설정된 데이터가 모아짐
+	
+	@RequestMapping("/menuadd")	//addMenu.jsp 보여주기위함
+	public String doMenuadd() {
+		return "addMenu";
+	}
+	
+	@RequestMapping("/addMenu")	//submit버튼이 눌리면 작동
+	public String doAddMenu(HttpServletRequest hsr) {
+		String mname=hsr.getParameter("menu_name");
+		int mprice=Integer.parseInt(hsr.getParameter("price"));
+		iEmp emp=sqlSession.getMapper(iEmp.class);
+		emp.addMenu(mname,mprice);
+		return "addMenu";
+	}
+
+	@RequestMapping("/country")
+	public String CountryList(Model m) {
+		iCountry cou=sqlSession.getMapper(iCountry.class);
+		ArrayList<Country> alcountry=cou.getCountryList();
+		m.addAttribute("alcountry",alcountry);
+		return "country";
+	}
+	
+	@RequestMapping("/emp")
+	public String doEmpList(Model m) {
+		iEmp emp=sqlSession.getMapper(iEmp.class);	//interface 이름 써줘야됨 데이터 싹 모여서
+		ArrayList<Employee> alemp=emp.getEmpList(); //emp.xml에서 id가 getEmpList를 호출해라 실제로 데이터가 담기는건 alemp
+		System.out.println(alemp.size());
+		m.addAttribute("alemp",alemp);
+		return "emp";
+	}
+	
 
 	@RequestMapping(value = "/look", method = RequestMethod.GET)
 	public String look(HttpServletRequest hsr, Model model) {
@@ -31,32 +69,32 @@ public class MyController {
 	
 	@RequestMapping("/calc")
 	public String calc(HttpServletRequest hsr,Model model) {
-		int x1=Integer.parseInt(hsr.getParameter("x1"));
-		int x2=Integer.parseInt(hsr.getParameter("x2"));
-		int result;
-		String op=hsr.getParameter("op");
-
-		if(op.equals("+")) {
-			result=x1+x2;
-			model.addAttribute("result",result);
-			return "plus";
-		} else if(op.equals("-")) {
-			result=x1-x2;
-			model.addAttribute("result",result);
-			return "minus";
-		} else if(op.equals("x")) {
-			result=x1*x2;
-			model.addAttribute("result",result);
-			return "multi";
-		} else if(op.equals("/")) {
-			result=x1/x2;
-			model.addAttribute("result",result);
-			return "divide";
-		} else {
-			model.addAttribute("result","연산자불명");
-			return "error";
-		}
-		
+//		int x1=Integer.parseInt(hsr.getParameter("x1"));
+//		int x2=Integer.parseInt(hsr.getParameter("x2"));
+//		int result;
+//		String op=hsr.getParameter("op");
+//
+//		if(op.equals("+")) {
+//			result=x1+x2;
+//			model.addAttribute("result",result);
+//			return "plus";
+//		} else if(op.equals("-")) {
+//			result=x1-x2;
+//			model.addAttribute("result",result);
+//			return "minus";
+//		} else if(op.equals("x")) {
+//			result=x1*x2;
+//			model.addAttribute("result",result);
+//			return "multi";
+//		} else if(op.equals("/")) {
+//			result=x1/x2;
+//			model.addAttribute("result",result);
+//			return "divide";
+//		} else {
+//			model.addAttribute("result","연산자불명");
+//			return "error";
+//		}
+//		
 		
 //		int x1 = Integer.parseInt(hsr.getParameter("x1"));
 //		int x2 = Integer.parseInt(hsr.getParameter("x2"));
@@ -73,21 +111,22 @@ public class MyController {
 //			model.addAttribute("result",result);
 //			return "input";
 //		  }
-//		try {
-//			int x1=Integer.parseInt(hsr.getParameter("x1"));
-//			int x2=Integer.parseInt(hsr.getParameter("x2"));
-//			int result=x1*x2;
-//			if(result<=20) {
-//				model.addAttribute("result",result);
-//				return "input";
-//			} else {
-//				model.addAttribute("result",result);
-//				return "calc";
-//			  }
-//		} catch(Exception e) {
-//			model.addAttribute("result","error");
-//			return "input";
-//		  }
+		
+		try {
+			int x1=Integer.parseInt(hsr.getParameter("x1"));
+			int x2=Integer.parseInt(hsr.getParameter("x2"));
+			int result=x1*x2;
+			if(result<=20) {
+				model.addAttribute("result",result);
+				return "input";
+			} else {
+				model.addAttribute("result",result);
+				return "calc";
+			  }
+		} catch(Exception e) {
+			model.addAttribute("result","error");
+			return "input";
+		  }
 	}
 		
 	
