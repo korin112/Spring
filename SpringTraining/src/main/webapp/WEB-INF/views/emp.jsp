@@ -25,7 +25,6 @@ th,td {border:1px solid black;}
 		<td>${emp.dep_name}</td>
 		<td>${emp.dname}</td>
 		<td>${emp.mname}</td>
-
 	</tr>
 </c:forEach>
 </tbody>

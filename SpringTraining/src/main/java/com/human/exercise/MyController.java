@@ -16,6 +16,44 @@ public class MyController {
 	@Autowired
 	private SqlSession sqlSession;	//servlet-context bean에 있는 내용이 딸려들어감 db에 관해 설정된 데이터가 모아짐
 	
+	@RequestMapping("/selRoom")
+	public String selectRoomList(Model m) {
+		iEmp getRoom=sqlSession.getMapper(iEmp.class);
+		ArrayList<room> RoomList=getRoom.getRoomList();
+		m.addAttribute("roomlist",RoomList);
+		return "addRoom";
+	}
+	
+	@RequestMapping("/addType")
+	public String addtype(HttpServletRequest hsr) {
+		int code=Integer.parseInt(hsr.getParameter("type"));
+		String name=hsr.getParameter("roomname");
+		iEmp addtype=sqlSession.getMapper(iEmp.class);
+		addtype.addType(code, name);
+		return "addType";
+	}
+	
+	@RequestMapping("/typeadd")
+	public String typeadd() {
+		return "addType";
+	}
+	
+	@RequestMapping("/addRoom")
+	public String doaddRoom(HttpServletRequest hsr) {
+		String name=hsr.getParameter("roomname");
+		int type=Integer.parseInt(hsr.getParameter("type"));
+		int howmany=Integer.parseInt(hsr.getParameter("howmany"));
+		int howmuch=Integer.parseInt(hsr.getParameter("howmuch"));
+		iEmp add=sqlSession.getMapper(iEmp.class);
+		add.addRoom(name,type,howmany,howmuch);
+		return "redirect:/selRoom";
+	}
+	
+	@RequestMapping("/roomadd")
+	public String doroomadd() {
+		return "addRoom";
+	}
+	
 	@RequestMapping("/menuadd")	//addMenu.jsp 보여주기위함
 	public String doMenuadd() {
 		return "addMenu";
