@@ -20,9 +20,9 @@
 <!-- <h1>값없음</h1> -->
 <%-- </c:if> --%>
 
-<%-- <c:if test="${result!=null}"> --%>
-<%-- <h1>RESULT : ${result}</h1> --%>
-<%-- </c:if> --%>
+<c:if test="${result!=null}">
+<h1>RESULT : ${result}</h1>
+</c:if>
 
 </form>
 </body>
