@@ -5,13 +5,15 @@ public class room {
 	private String name;
 	private int howmany;
 	private int howmuch;
+	private String type;
 	public room() {
 	}
-	public room(int roomcode, String name, int howmany, int howmuch) {
+	public room(int roomcode, String name, int howmany, int howmuch, String type) {
 		this.roomcode = roomcode;
 		this.name = name;
 		this.howmany = howmany;
 		this.howmuch = howmuch;
+		this.type = type;
 	}
 	public int getRoomcode() {
 		return roomcode;
@@ -37,5 +39,11 @@ public class room {
 	public void setHowmuch(int howmuch) {
 		this.howmuch = howmuch;
 	}
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+		
 }

@@ -16,12 +16,13 @@ public class MyController {
 	@Autowired
 	private SqlSession sqlSession;	//servlet-context bean에 있는 내용이 딸려들어감 db에 관해 설정된 데이터가 모아짐
 	
-	@RequestMapping("/selRoom")
-	public String selectRoomList(Model m) {
-		iEmp getRoom=sqlSession.getMapper(iEmp.class);
-		ArrayList<room> RoomList=getRoom.getRoomList();
-		m.addAttribute("roomlist",RoomList);
-		return "addRoom";
+	
+	@RequestMapping("/deleteRoom")
+	public String doDeleteRoom(HttpServletRequest hsr) {
+		int code=Integer.parseInt(hsr.getParameter("roomcode"));
+		iEmp delRoom=sqlSession.getMapper(iEmp.class);
+		delRoom.deleteRoom(code);
+		return "redirect:/roomadd";
 	}
 	
 	@RequestMapping("/addType")
@@ -38,34 +39,70 @@ public class MyController {
 		return "addType";
 	}
 	
-	@RequestMapping("/addRoom")
+	@RequestMapping("/addRoom")		//insert
 	public String doaddRoom(HttpServletRequest hsr) {
+		String strCode=hsr.getParameter("roomcode");
 		String name=hsr.getParameter("roomname");
-		int type=Integer.parseInt(hsr.getParameter("type"));
+		int type=Integer.parseInt(hsr.getParameter("roomtype"));
 		int howmany=Integer.parseInt(hsr.getParameter("howmany"));
 		int howmuch=Integer.parseInt(hsr.getParameter("howmuch"));
+		
+		if(strCode.equals("")) {
 		iEmp add=sqlSession.getMapper(iEmp.class);
 		add.addRoom(name,type,howmany,howmuch);
-		return "redirect:/selRoom";
+		} else {
+			int code=Integer.parseInt(strCode);
+			iEmp emp=sqlSession.getMapper(iEmp.class);
+			emp.updateRoom(code, name, type, howmany, howmuch);
+		}
+		return "redirect:/roomadd";
 	}
 	
-	@RequestMapping("/roomadd")
-	public String doroomadd() {
+	@RequestMapping("/roomadd")		//select
+	public String doroomadd(Model m) {
+		iEmp getRoom=sqlSession.getMapper(iEmp.class);
+		ArrayList<room> RoomList=getRoom.getRoomList();
+		m.addAttribute("roomlist",RoomList);
+		ArrayList<RoomType> typeList=getRoom.getRoomType();
+		m.addAttribute("types",typeList);
+		
+		
 		return "addRoom";
 	}
 	
+	@RequestMapping("/deleteMenu")
+	public String doDeleteMenu(HttpServletRequest hsr) {
+		int code=Integer.parseInt(hsr.getParameter("code"));
+		iEmp delMenu=sqlSession.getMapper(iEmp.class);
+		delMenu.deleteMenu(code);
+		return "redirect:/menuadd";
+	}
+
 	@RequestMapping("/menuadd")	//addMenu.jsp 보여주기위함
-	public String doMenuadd() {
+	public String doMenuadd(Model m) {
+		iEmp getMenu=sqlSession.getMapper(iEmp.class);
+		ArrayList<Menu> MenuList=getMenu.getMenuList();
+		m.addAttribute("MenuList",MenuList);
+//		System.out.println(MenuList.size());
 		return "addMenu";
 	}
 	
 	@RequestMapping("/addMenu")	//submit버튼이 눌리면 작동
 	public String doAddMenu(HttpServletRequest hsr) {
+		String strCode=hsr.getParameter("code");
 		String mname=hsr.getParameter("menu_name");
 		int mprice=Integer.parseInt(hsr.getParameter("price"));
-		iEmp emp=sqlSession.getMapper(iEmp.class);
-		emp.addMenu(mname,mprice);
-		return "addMenu";
+		
+		if(strCode.equals("")) {	//insert
+			iEmp emp=sqlSession.getMapper(iEmp.class);
+			emp.addMenu(mname,mprice);
+		} 		
+		else {					//update
+			int code=Integer.parseInt(strCode);
+			iEmp emp=sqlSession.getMapper(iEmp.class);
+			emp.updateMenu(code, mname, mprice);
+		}
+		return "redirect:/menuadd";
 	}
 
 	@RequestMapping("/country")

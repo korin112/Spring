@@ -4,10 +4,18 @@
 
 <mapper namespace="com.human.exercise.iEmp"> <!-- interface name -->
 
+<select id="getMenuList" resultType="com.human.exercise.Menu">
+select code, name as menuname,price from menu
+</select>
+
 <select id="getRoomList" resultType="com.human.exercise.room">
-select a.roomcode as roomcode,b.name as name,a.howmany as howmany,a.howmuch as howmuch
+select a.roomcode,a.name as name,b.typename as type,a.howmany,a.howmuch
 from room a, roomtype b
 where a.type=b.typecode
+</select> 
+
+<select id="getRoomType" resultType="com.human.exercise.RoomType">
+select typecode,typename from roomtype order by typecode
 </select>
 
 <select id="getEmpList" resultType="com.human.exercise.Employee"> <!-- 리턴되는 데이터의 형태에 관한거 integer,string일수도잇고 큰 덩어리를 받아올거면 클래스로 받아올거임 이게 DTO임 DTO는 select랑 일함-->
@@ -18,7 +26,7 @@ order by c.department_id
 </select>
 
 <insert id="addMenu">
-insert into menu(code,name,price) values(seq_code.nextval,#{param1},#{param2})
+insert into menu(code,name,price) values(seq_menu.nextval,#{param1},#{param2})
 </insert>
 
 <insert id="addRoom">
@@ -26,6 +34,22 @@ insert into room(roomcode,name,type,howmany,howmuch) values(seq_room.nextval,#{p
 </insert>
 
 <insert id="addType">
-insert into roomtype(typecode,name) values(#{param1},#{param2})
+insert into roomtype(typecode,typename) values(#{param1},#{param2}) 
 </insert>
+
+<delete id="deleteMenu">
+delete from menu where code=#{param1}
+</delete>
+
+<delete id="deleteRoom">
+delete from room where roomcode=#{param1}
+</delete>
+
+<update id="updateMenu">
+update menu set name=#{param2},price=#{param3} where code=#{param1}
+</update>
+
+<update id="updateRoom">
+update room set name=#{param2},type=#{param3}, howmany=#{param4}, howmuch=#{param5} where roomcode=#{param1}
+</update>
 </mapper>
