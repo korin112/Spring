@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class MyController {
@@ -41,23 +45,64 @@ public class MyController {
 	
 	@RequestMapping("/addRoom")		//insert
 	public String doaddRoom(HttpServletRequest hsr) {
+		String strCode=hsr.getParameter("roomcode");
 		String name=hsr.getParameter("roomname");
 		int type=Integer.parseInt(hsr.getParameter("roomtype"));
 		int howmany=Integer.parseInt(hsr.getParameter("howmany"));
 		int howmuch=Integer.parseInt(hsr.getParameter("howmuch"));
+		
+		if(strCode.equals("")) {
 		iEmp add=sqlSession.getMapper(iEmp.class);
 		add.addRoom(name,type,howmany,howmuch);
+		} else {
+			int code=Integer.parseInt(strCode);
+			iEmp emp=sqlSession.getMapper(iEmp.class);
+			emp.updateRoom(code, name, type, howmany, howmuch);
+		}
 		return "redirect:/roomadd";
 	}
 	
 	@RequestMapping("/roomadd")		//select
 	public String doroomadd(Model m) {
+//		iEmp getRoom=sqlSession.getMapper(iEmp.class);
+//		ArrayList<room> RoomList=getRoom.getRoomList();
+//		m.addAttribute("roomlist",RoomList);
+//		ArrayList<RoomType> typeList=getRoom.getRoomType();
+//		m.addAttribute("types",typeList);
+		return "addRoom";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/roomadd1",produces="application/json;charset=utf-8")
+	public String roomadd1() {
 		iEmp getRoom=sqlSession.getMapper(iEmp.class);
 		ArrayList<room> RoomList=getRoom.getRoomList();
-		m.addAttribute("roomlist",RoomList);
-		ArrayList<RoomType> typeList=getRoom.getRoomType();
-		m.addAttribute("types",typeList);
-		return "addRoom";
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<RoomList.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("roomcode",RoomList.get(i).getRoomcode());
+			jo.put("name",RoomList.get(i).getName());
+			jo.put("type",RoomList.get(i).getType());
+			jo.put("howmany",RoomList.get(i).getHowmany());
+			jo.put("howmuch",RoomList.get(i).getHowmuch());
+			ja.add(jo);
+		}
+		return ja.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/typeadd1",produces="application/json;charset=utf-8")
+	public String roomtype1() {
+		iEmp getType=sqlSession.getMapper(iEmp.class);
+		ArrayList<RoomType> TypeList=getType.getRoomType();
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<TypeList.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("typecode",TypeList.get(i).getTypecode());
+			jo.put("typename",TypeList.get(i).getTypename());
+			ja.add(jo);
+		}
+		return ja.toString();
 	}
 	
 	@RequestMapping("/deleteMenu")
@@ -67,21 +112,38 @@ public class MyController {
 		delMenu.deleteMenu(code);
 		return "redirect:/menuadd";
 	}
-
-	@RequestMapping("/menuadd")	//addMenu.jsp 보여주기위함
-	public String doMenuadd(Model m) {
+	@ResponseBody	// json,ajax호출할땐 이거 필요
+	@RequestMapping(value="/menuadd1", produces="application/json;charset=utf-8")	//addMenu.jsp 보여주기위함
+	public String doMenuadd() {
 		iEmp getMenu=sqlSession.getMapper(iEmp.class);
 		ArrayList<Menu> MenuList=getMenu.getMenuList();
-		m.addAttribute("MenuList",MenuList);
+		//MenuList에는 가격이랑 메뉴명 들어있음
+		//JSONArray, JSONObject 를 쓸 수 있음 JSON lib때문에
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<MenuList.size(); i++) {	// arraylist -> json으로 바꿔줌 model m 이 아니라
+			JSONObject jo=new JSONObject();
+			jo.put("code",MenuList.get(i).getCode());
+			jo.put("menuname",MenuList.get(i).getMenuname());
+			jo.put("price",MenuList.get(i).getPrice());
+			ja.add(jo);
+		}
+		return ja.toString(); //json형태의 문자열 이건 jsp앞에 txt로 들어감
+//		m.addAttribute("MenuList",MenuList);
 //		System.out.println(MenuList.size());
+//		return "addMenu";
+	}
+	@RequestMapping("/menuadd")	//jsp 보여주는거
+	public String menuadd() {
 		return "addMenu";
 	}
+	
 	
 	@RequestMapping("/addMenu")	//submit버튼이 눌리면 작동
 	public String doAddMenu(HttpServletRequest hsr) {
 		String strCode=hsr.getParameter("code");
 		String mname=hsr.getParameter("menu_name");
 		int mprice=Integer.parseInt(hsr.getParameter("price"));
+		
 		if(strCode.equals("")) {	//insert
 			iEmp emp=sqlSession.getMapper(iEmp.class);
 			emp.addMenu(mname,mprice);
@@ -102,12 +164,34 @@ public class MyController {
 		return "country";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/empview" , produces="application/json;charset=utf-8")
+	public String empview(HttpServletRequest hsr) {
+		String keyword=hsr.getParameter("kw");
+		
+		if(keyword.equals("")) return "";
+		
+		iEmp getemp=sqlSession.getMapper(iEmp.class);
+		ArrayList<iemp1>getEmpList=getemp.getEmpList1(Integer.parseInt(keyword));
+		
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<getEmpList.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("empid",getEmpList.get(i).getEmployee_id());
+			jo.put("empname",getEmpList.get(i).getEmp_name());
+			jo.put("pnumber",getEmpList.get(i).getPhone_number());
+			jo.put("mid",getEmpList.get(i).getManager_id());
+			jo.put("hdate",getEmpList.get(i).getHire_date());
+			ja.add(jo);
+		}
+		return ja.toString();
+		}	
+	
 	@RequestMapping("/emp")
-	public String doEmpList(Model m) {
-		iEmp emp=sqlSession.getMapper(iEmp.class);	//interface 이름 써줘야됨 데이터 싹 모여서
-		ArrayList<Employee> alemp=emp.getEmpList(); //emp.xml에서 id가 getEmpList를 호출해라 실제로 데이터가 담기는건 alemp
-		System.out.println(alemp.size());
-		m.addAttribute("alemp",alemp);
+	public String doEmpList() {
+		 //interface 이름 써줘야됨 데이터 싹 모여서
+		 //emp.xml에서 id가 getEmpList를 호출해라 실제로 데이터가 담기는건 alemp
+		
 		return "emp";
 	}
 	

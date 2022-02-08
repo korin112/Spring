@@ -3,6 +3,7 @@ package com.human.exercise;
 import java.util.ArrayList;
 
 public interface iEmp {
+	ArrayList<iemp1> getEmpList1(int keyword);
 	ArrayList<Menu> getMenuList();
 	ArrayList<room> getRoomList();
 	ArrayList<RoomType> getRoomType();
@@ -13,6 +14,7 @@ public interface iEmp {
 	void deleteRoom(int roomcode);
 	void deleteMenu(int code);
 	void updateMenu(int code,String name, int price);
+	void updateRoom(int roomcode,String name,int type, int howmany,int howmuch);
 	
 }
 

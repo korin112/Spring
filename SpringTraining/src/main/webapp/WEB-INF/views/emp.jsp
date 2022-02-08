@@ -12,22 +12,47 @@ th,td {border:1px solid black;}
 </style>
 
 <body>
-<table>
+<table id=tblEMP >
 <thead>
+<input type=text id=txtKeyword>
+<button id=btnShow>직원명단조회</button><br>
 	<tr>
-	<th>부서ID</th><th>부서이름</th><th>상위부서</th><th>부서장이름</th>
+	<th>사번</th><th>이름</th><th>전화번호</th><th>매니저아이디</th><th>입사일자</th>
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${alemp}" var="emp"> <!-- alEmp에서 나올게 없을때까지 하나씩 꺼내서 emp에 넣음 --> 
-	<tr>
-		<td>${emp.dep_id}</td>	<!-- emp안에있는 객체들을 꺼내는거임 -->
-		<td>${emp.dep_name}</td>
-		<td>${emp.dname}</td>
-		<td>${emp.mname}</td>
-	</tr>
-</c:forEach>
+<!-- 	<tr> -->
+<!-- 		<td></td>	 -->
+<!-- 		<td></td> -->
+<!-- 		<td></td> -->
+<!-- 		<td></td> -->
+<!-- 		<td></td> -->
+<!-- 	</tr> -->
 </tbody>
 </table>
 </body>
+<script src='https://code.jquery.com/jquery-3.5.0.js'></script>
+<script>
+$(document)
+.on('click','#btnShow',function(){
+	$.ajax({ url:"/exercise/empview",
+			 data:{kw:$('#txtKeyword').val()},	// data 보내는거임
+			 method:"POST",
+			 datatype:"json",
+			 success:function(txt){
+				 console.log(txt)
+				 $('#tblEMP').empty();
+				 for(i=0; i<txt.length; i++){
+					 let str='<tr><td>'+txt[i]['empid']+'</td>'+
+					 		     '<td>'+txt[i]['empname']+'</td>'+
+					 		'<td>'+txt[i]['pnumber']+'</td>'+
+					 		'<td>'+txt[i]['mid']+'</td>'+
+					 		'<td>'+txt[i]['hdate']+'</td></tr>';
+					 		$('#tblEMP').append(str);
+				 }
+			 }
+	});
+})
+
+</script>
 </html>

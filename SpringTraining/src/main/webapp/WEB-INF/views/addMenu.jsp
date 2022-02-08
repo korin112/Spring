@@ -12,9 +12,9 @@
 <tr>
 		<td>
 			<select id= selMenu style='width:200px' size=10>
-			<c:forEach items="${MenuList }" var="ML"> 
-			<option value=${ML.code}>${ML.menuname },${ML.price }</option>
-			</c:forEach>
+<%-- 			<c:forEach items="${MenuList }" var="ML">  --%>
+<%-- 			<option value=${ML.code}>${ML.menuname },${ML.price }</option> --%>
+<%-- 			</c:forEach> --%>
 			</select>
 		</td>
 <td>
@@ -46,28 +46,44 @@
 <script>
 
 $(document)
-.on('submit','#frmAddMenu',function(){
-	if($('mname').val() ==''||
-			$('price').val() ==''){
-		alert('두 값이 입력되어야 합니다.');
-		return false;
-	}
-	return true;
+.ready(function(){ 						//ja.toString이 들어옴
+	$.ajax({ url:"/exercise/menuadd1",
+			data: {},
+			method:"GET",
+			datatype:"json",
+			success:function(txt){	//model로 받아오는걸 ajax호출로 하는거임
+				for(i=0; i<txt.length; i++){
+					let str='<option value='+txt[i]['code']+'>'+txt[i]['menuname']+', '+txt[i]['price']+'</option>';
+					console.log(str);
+					$('#selMenu').append(str);
+				}
+			}
+	});
 })
-.on('click','#selMenu option',function(){
-// 	console.log($(this).val()+','+$(this).text());
-	$('#code').val($(this).val());
-	let str=$(this).text();
-	let ar=str.split(',');
-	$('input[name=menu_name]').val($.trim(ar[0]));
-	$('input[name=price]').val($.trim(ar[1]));
-	return false;
-})
-.on('click','#btnDelete',function(){
-	let url="/exercise/deleteMenu?code="+$('#code').val();
-	document.location=url;
-	console.log(url);
-})
+
+// .on('submit','#frmAddMenu',function(){
+// 	if($('mname').val() ==''||
+// 			$('price').val() ==''){
+// 		alert('두 값이 입력되어야 합니다.');
+// 		return false;
+// 	}
+// 	return true;
+// })
+// .on('click','#selMenu option',function(){
+// // 	console.log($(this).val()+','+$(this).text());
+// 	$('#code').val($(this).val());
+// 	let str=$(this).text();
+// 	console.log(str);
+// 	let ar=str.split(',');
+// 	$('input[name=menu_name]').val($.trim(ar[0]));
+// 	$('input[name=price]').val($.trim(ar[1]));
+// 	return false;
+// })
+// .on('click','#btnDelete',function(){
+// 	let url="/exercise/deleteMenu?code="+$('#code').val();
+// 	document.location=url;
+	
+// })
 .on('click','#reset',function(){
 	$('#code,#mname,#price').val('');
 })
