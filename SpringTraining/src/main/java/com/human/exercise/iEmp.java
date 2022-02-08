@@ -3,6 +3,7 @@ package com.human.exercise;
 import java.util.ArrayList;
 
 public interface iEmp {
+	ArrayList<iemp1> getEmpList1(int keyword);
 	ArrayList<Menu> getMenuList();
 	ArrayList<room> getRoomList();
 	ArrayList<RoomType> getRoomType();
