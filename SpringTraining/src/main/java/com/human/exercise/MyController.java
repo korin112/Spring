@@ -20,6 +20,89 @@ public class MyController {
 	@Autowired
 	private SqlSession sqlSession;	//servlet-context bean에 있는 내용이 딸려들어감 db에 관해 설정된 데이터가 모아짐
 	
+	@RequestMapping("/manager")
+	public String domanager(Model m) {
+		iJob manager=sqlSession.getMapper(iJob.class);
+		ArrayList<manager> ml=manager.ManList();
+		m.addAttribute("manager",ml);
+		return "manager";
+	}
+		
+	@ResponseBody
+	@RequestMapping(value="/managerlist",produces="application/json;charset=utf-8")
+	public String domanagerlist(HttpServletRequest hsr) {
+		String mid = hsr.getParameter("mid");	// key 써줘야댐 value x
+		iJob dept=sqlSession.getMapper(iJob.class);
+		dept.EmpList(mid);
+		ArrayList<manager1> ml=dept.EmpList(mid);
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<ml.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("eid",ml.get(i).getEid());
+			jo.put("ename",ml.get(i).getEname());
+			ja.add(jo);
+		}
+		return ja.toString();
+	}
+	
+
+	@RequestMapping("/dept")
+	public String dodept(Model m) {
+		iJob dept=sqlSession.getMapper(iJob.class);
+		ArrayList<deptlist> dl=dept.deptList();
+		m.addAttribute("dept",dl);
+		return "dept";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deptlist",produces="application/json;charset=utf-8")
+	public String dodeptlist(HttpServletRequest hsr) {
+		String depid = hsr.getParameter("depid");	// key 써줘야댐 value x
+		iJob dept=sqlSession.getMapper(iJob.class);
+		dept.getDept(depid);
+		ArrayList<emplist1> ml=dept.getDept(depid);
+		 
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<ml.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("eid",ml.get(i).getEid());
+			jo.put("ename",ml.get(i).getEname());
+			jo.put("mobile",ml.get(i).getMobile());
+			jo.put("salary",ml.get(i).getSalary());
+			ja.add(jo);
+		}
+		return ja.toString();
+	}
+	
+	@RequestMapping("/job")
+	public String dojob(Model model) {
+		iJob job=sqlSession.getMapper(iJob.class);
+		ArrayList<Job> jl=job.jobList();
+		model.addAttribute("jobs",jl);
+		return "job";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/position",produces="application/json;charset=utf-8")
+	public String doPosition(HttpServletRequest hsr) {
+		String jobid = hsr.getParameter("jobcode");	// key 써줘야댐 value x
+		iJob job=sqlSession.getMapper(iJob.class);
+		job.getList(jobid);
+		ArrayList<EmpInfo> ml=job.getList(jobid);
+		
+		JSONArray ja= new JSONArray();
+		for(int i=0; i<ml.size(); i++) {
+			JSONObject jo=new JSONObject();
+			jo.put("eid",ml.get(i).getEid());
+			jo.put("ename",ml.get(i).getEname());
+			jo.put("mobile",ml.get(i).getMobile());
+			jo.put("dname",ml.get(i).getDname());
+			ja.add(jo);
+		}
+		return ja.toString();
+	}
+	
+	
 	
 	@RequestMapping("/deleteRoom")
 	public String doDeleteRoom(HttpServletRequest hsr) {
@@ -138,22 +221,20 @@ public class MyController {
 	}
 	
 	
-	@RequestMapping("/addMenu")	//submit버튼이 눌리면 작동
-	public String doAddMenu(HttpServletRequest hsr) {
+	@RequestMapping("/addMenu")	
+	public void doAddMenu(HttpServletRequest hsr) {
 		String strCode=hsr.getParameter("code");
 		String mname=hsr.getParameter("menu_name");
 		int mprice=Integer.parseInt(hsr.getParameter("price"));
 		
+		iEmp emp=sqlSession.getMapper(iEmp.class);		
 		if(strCode.equals("")) {	//insert
-			iEmp emp=sqlSession.getMapper(iEmp.class);
 			emp.addMenu(mname,mprice);
 		} 		
 		else {					//update
 			int code=Integer.parseInt(strCode);
-			iEmp emp=sqlSession.getMapper(iEmp.class);
 			emp.updateMenu(code, mname, mprice);
 		}
-		return "redirect:/menuadd";
 	}
 
 	@RequestMapping("/country")

@@ -4,13 +4,13 @@
 
 <mapper namespace="com.human.exercise.iEmp"> <!-- interface name -->
 
+
 <select id="getEmpList1" resultType="com.human.exercise.iemp1">
 select employee_id,emp_name,phone_number,manager_id,hire_date 
 from employees 
 where employee_id=#{param1}
 order by employee_id
 </select>
-
 
 <select id="getMenuList" resultType="com.human.exercise.Menu">
 select code, name as menuname,price from menu
@@ -60,4 +60,5 @@ update menu set name=#{param2},price=#{param3} where code=#{param1}
 <update id="updateRoom">
 update room set name=#{param2},type=#{param3}, howmany=#{param4}, howmuch=#{param5} where roomcode=#{param1}
 </update>
+
 </mapper>

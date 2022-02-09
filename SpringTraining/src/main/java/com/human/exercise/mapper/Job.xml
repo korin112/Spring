@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.human.exercise.iJob">
+
+<select id="jobList" resultType="com.human.exercise.Job">
+select job_id,job_title from jobs order by job_title
+</select>
+
+<select id="getList" resultType="com.human.exercise.EmpInfo">
+select a.employee_id as eid,
+		a.emp_name as ename,
+		a.phone_number as mobile,
+		b.department_name as dname
+from employees a, departments b
+where a.job_id=#{param1} and a.department_id=b.department_id
+</select>
+
+<select id="getDept" resultType="com.human.exercise.emplist1" >
+select a.employee_id as eid,a.emp_name as ename,a.phone_number as mobile,a.salary
+from employees a, departments b
+where b.department_id=#{param1} and a.department_id=b.department_id
+</select>
+
+<select id="deptList" resultType="com.human.exercise.deptlist">
+select department_id, department_name from departments order by department_id
+</select>
+
+<select id="ManList" resultType="com.human.exercise.manager">
+select employee_id as eid1, emp_name as ename from employees order by employee_id
+</select>
+
+<select id="EmpList" resultType="com.human.exercise.manager1">
+select a.emp_name as ename
+from employees a,employees b
+where b.employee_id=#{param1} and a.manager_id=b.employee_id
+</select>
+</mapper>

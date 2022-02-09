@@ -10,7 +10,6 @@
 table { border-collapse:collapse}
 th,td {border:1px solid black;}
 </style>
-
 <body>
 <table id=tblEMP >
 <thead>
@@ -39,16 +38,19 @@ $(document)
 			 data:{kw:$('#txtKeyword').val()},	// data 보내는거임
 			 method:"POST",
 			 datatype:"json",
+			 beforeSend:function(){
+				 $('#tblEMP').empty(); 
+			 },
 			 success:function(txt){
-				 console.log(txt)
-				 $('#tblEMP').empty();
+// 				 console.log(txt)
+// 				 $('#tblEMP').empty();
 				 for(i=0; i<txt.length; i++){
 					 let str='<tr><td>'+txt[i]['empid']+'</td>'+
 					 		     '<td>'+txt[i]['empname']+'</td>'+
-					 		'<td>'+txt[i]['pnumber']+'</td>'+
-					 		'<td>'+txt[i]['mid']+'</td>'+
-					 		'<td>'+txt[i]['hdate']+'</td></tr>';
-					 		$('#tblEMP').append(str);
+					 			 '<td>'+txt[i]['pnumber']+'</td>'+
+					 			 '<td>'+txt[i]['mid']+'</td>'+
+					 			 '<td>'+txt[i]['hdate']+'</td></tr>';
+					$('#tblEMP').append(str);
 				 }
 			 }
 	});
