@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.hotel.iHotel"> <!-- interface name -->
+
+<insert id="addType">
+insert into roomtype values(#{param1},#{param2})
+</insert>
+
+<insert id="addRoom">
+insert into room values(seq_room_code.nextval, #{param1},#{param2},#{param3},#{param4})
+</insert>
+
+<select id="selType" resultType="com.team.hotel.roomtypeDTO">
+select type_code,name from roomtype
+</select>
+
+<select id="selRoom" resultType="com.team.hotel.roomDTO">
+select room_code,name,type,howmany,howmuch from room
+</select>
+</mapper>
