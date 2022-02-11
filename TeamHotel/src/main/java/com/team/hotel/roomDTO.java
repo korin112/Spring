@@ -6,14 +6,16 @@ public class roomDTO {
 	private int type;
 	private int howmany; 
 	private int howmuch;
+	private String type_name;
 	public roomDTO() {
 	}
-	public roomDTO(int room_code, String name, int type, int howmany, int howmuch) {
+	public roomDTO(int room_code, String name, int type, int howmany, int howmuch, String type_name) {
 		this.room_code = room_code;
 		this.name = name;
 		this.type = type;
 		this.howmany = howmany;
 		this.howmuch = howmuch;
+		this.type_name = type_name;
 	}
 	public int getRoom_code() {
 		return room_code;
@@ -45,5 +47,11 @@ public class roomDTO {
 	public void setHowmuch(int howmuch) {
 		this.howmuch = howmuch;
 	}
-	
+	public String getType_name() {
+		return type_name;
+	}
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
+		
 }

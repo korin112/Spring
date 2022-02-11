@@ -5,7 +5,7 @@
 <mapper namespace="com.team.hotel.iHotel"> <!-- interface name -->
 
 <insert id="addType">
-insert into roomtype values(#{param1},#{param2})
+insert into roomtype values(seq_type_code.nextval,#{param1})
 </insert>
 
 <insert id="addRoom">
@@ -13,10 +13,27 @@ insert into room values(seq_room_code.nextval, #{param1},#{param2},#{param3},#{p
 </insert>
 
 <select id="selType" resultType="com.team.hotel.roomtypeDTO">
-select type_code,name from roomtype
+select type_code,type_name from roomtype order by type_code
 </select>
 
 <select id="selRoom" resultType="com.team.hotel.roomDTO">
-select room_code,name,type,howmany,howmuch from room
+select a.room_code, a.name, b.type_name, a.howmany, a.howmuch from room a, roomtype b where a.type=b.type_code order by type_code
 </select>
+
+<delete id="delRoom">
+delete from room where room_code=#{param1}
+</delete>
+
+<delete id="delType">
+delete from roomtype where type_code=#{param1}
+</delete>
+
+<update id="updType">
+update roomtype set type_name=#{param2} where type_code=#{param1}
+</update>
+
+<update id="updRoom">
+update room set name=#{param2}, type=#{param3}, howmany=#{param4}, howmuch=#{param5} where room_code=#{param1}
+</update>
+
 </mapper>

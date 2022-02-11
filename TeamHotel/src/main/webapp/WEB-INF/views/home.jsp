@@ -13,8 +13,6 @@ li{list-style : none;}
  *{padding:0;margin:0;}
  </style>
 <header>
-		
-		
 			<h1><a href="/hotel/">NCS7 HOTEL</a></h1>	<!-- homepage -->
 			<div>
 			<nav>
@@ -25,12 +23,11 @@ li{list-style : none;}
 					<li><a href="/hotel/FAQ">FAQ</a></li>
 					
 					<li><a href="/hotel/guestcontrol">예약자관리</a></li>
-					<li><a href="/hotel/typecontrol">객실타입관리</a></li>
-					<li><a href="/hotel/roomcontrol">객실관리</a></li>
+					<li><a href="/hotel/controltype">객실타입관리</a></li>
+					<li><a href="/hotel/controlroom">객실관리</a></li>
 				</ul>
 				</nav>
 			</div>
-		
 	</header>
 <body>
 
