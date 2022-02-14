@@ -16,10 +16,10 @@
 
 </head>
 
-<h1><a href="/hotel/">NCS7 HOTEL</a></h1>
+<h1><a href="/hotel/" style="color:#ccc; font-weight:bold; font-size:31px;">NCS7 HOTEL</a></h1>
 <div class="page-title">
-<h2>Superior</h2>
-<h3>슈페리얼</h3>
+<h2 style="font-weight:bold; font-size:29.5px; margin-top:15px;">슈페리얼</h2>
+<h3 style="font-weight:bold; letter-spacing:17px; color:#ccc; font-size:10px;">SUPERIOR</h3>
 </div>
 <h3 style="text-align:left;"><a href="/hotel/roominfo">이전</a></h3>
 <hr>
@@ -87,7 +87,10 @@
   </button>
 </div>
 <hr>
- 	<button type="button" onclick="location.href='/reservation'">예약하기</button>
+ 	<button type="button" style="background-color:#051e3e; color:white;
+ 						  width:300px; border:none; padding: 10px 0px 10px 0px;
+ 						  margin-top:30px;"
+ 						  onclick="location.href='/reservation'">B O O K I N G</button>
 </body>
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
 
