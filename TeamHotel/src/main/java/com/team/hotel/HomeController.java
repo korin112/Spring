@@ -25,12 +25,17 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
+
 	
+	//typecontrol CRUD	
 	@RequestMapping(value = "/controltype")		//show typecontrol
 	public String typecontrol() {
-		return "redirect:/typecontrol";
+		return "typecontrol";
 	}
-	 
+	@RequestMapping(value = "/NewFile")		//show typecontrol
+	public String NewFile() {
+		return "NewFile";
+	}
 	@RequestMapping("/addType")		//insert typecontrol
 	public String addType(HttpServletRequest hsr) {
 		String type_name = hsr.getParameter("name");
@@ -39,7 +44,7 @@ public class HomeController {
 		return "typecontrol";
 	}
 		
-	@RequestMapping("/updType")
+	@RequestMapping("/updType")		//update typecontrol
 	public String updType(HttpServletRequest hsr) {
 		String type_name = hsr.getParameter("name");
 		int type_code = Integer.parseInt(hsr.getParameter("type_code"));
@@ -79,11 +84,7 @@ public class HomeController {
 		return "typecontrol";
 	}
 		
-	
-	
-	
-	
-	
+	//roomcontrol CRUD
 	
 	@RequestMapping("/controlroom")		//show roomcontrol
 	public String roomcontrol() {
@@ -143,7 +144,53 @@ public class HomeController {
 		}
 		return ja.toString();
 	}
+	// roominfo start
 	
+	@RequestMapping("/roominfo")
+	public String showroominfo() {
+		return "roominfo";
+	}
+	
+	@RequestMapping("/header")
+	public String showheader() {
+		return "header";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("/superior")		//show superior  type들
+	public String Showsuperior() {
+		return "superior";
+	}
+	@RequestMapping("/superior/SDB")
+	public String ShowSDB() {
+		return "SDB";
+	}
+	@RequestMapping("/superior/STW")
+	public String ShowSTW() {
+		return "STW";
+	}
+	@RequestMapping("/superior/SFD")
+	public String ShowSFD() {
+		return "SFD";
+	}
+	@RequestMapping("/superior/SFT")
+	public String ShowSFT() {
+		return "SFT";
+	}
+		
+	
+	@RequestMapping("/gorgeous")
+	public String Showgorgeous() {
+		return "gorgeous";
+	}
+	
+	@RequestMapping("/suite")
+	public String Showsuite() {
+		return "suite";
+	}
 	
 	
 	

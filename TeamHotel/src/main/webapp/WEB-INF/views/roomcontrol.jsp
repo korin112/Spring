@@ -10,7 +10,7 @@
 <body>
 <h1><a href="/hotel/">NCS7 HOTEL</a></h1>
 <form id=frmRoom action="/hotel/addRoom">
-객실코드 : <input type=text id=room_code name=room_code placeholder='객실코드를 입력해주세요' ><br>
+객실코드 : <input type=text id=room_code name=room_code placeholder='객실코드를 입력해주세요' readonly><br>
 객실명 : <input type=text id=name name=name placeholder='객실명을 입력해주세요'><br>
 객실타입 : <select id=selType name=seltype></select><br>
 숙박인원 : <input type=text id=howmany name=howmany placeholder='숙박인원을 입력해주세요'><br>

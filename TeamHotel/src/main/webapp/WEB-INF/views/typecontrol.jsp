@@ -10,7 +10,7 @@
 <body>
 <h1><a href="/hotel/">NCS7 HOTEL</a></h1>
 <form id=frmRoom action="/hotel/addType">
-객실타입코드 : <input type=text id=type_code name=type_code><br>
+객실타입코드 : <input type=text id=type_code name=type_code readonly><br>
 객실타입명 : <input type=text id=name name=name><br><br>
 <input type=submit value='추가'>
 <input type=button value='수정' id=btnUpdate>
