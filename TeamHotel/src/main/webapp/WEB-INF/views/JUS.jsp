@@ -12,23 +12,23 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Superior</title>
+<title>Suite</title>
 
 </head>
 <jsp:include page="header.jsp" />
 <h1><a href="/hotel/" style="color:#ccc; font-weight:bold; font-size:31px;">NCS7 HOTEL</a></h1>
 <div class="page-title">
-<h2 style="font-weight:bold; font-size:29.5px; margin-top:15px; letter-spacing:8px; margin-left:10px;">골져스</h2>
-<h3 style="font-weight:bold; letter-spacing:17px; color:#ccc; font-size:10px; margin-left:13px; margin-top:15px;">GORGEOUS</h3>
-<h3 style="text-align:left; font-weight:bold; font-size:19px; "><a href="/hotel/roominfo">Prev</a></h3>
+<h2 style="font-weight:bold; font-size:29.5px; margin-top:8px; letter-spacing:10px; margin-left:15px;">스위트</h2>
+<h3 style="font-weight:bold; letter-spacing:17px; color:#ccc; font-size:10px; margin-left:19px;">SUITE</h3>
+<h3 style="text-align:left; font-weight:bold; font-size:19px;"><a href="/hotel/roominfo">Prev</a></h3>
 </div> 
 <hr>
 <body style="text-align:center;">
-	<div class="roomTab" style="margin:0px 0px 0px -353px;">
+	<div class="roomTab" style="margin:0px 0px 0px -280px;">
 		<ul>
-			<li class="on"><a href="/hotel/gorgeous/GKD">Gorgeous King-Double</a></li>
-			<li><a href="/hotel/gorgeous/GOD">Gorgeous Ocean-Double</a></li>
-			<li><a href="/hotel/gorgeous/GOT">Gorgeous Ocean-Twin</a></li>
+			<li class="on"><a href="/hotel/suite/JUS">Junior-Suite</a></li>
+			<li><a href="/hotel/suite/ROS">Royal-Suite</a></li>
+			<li><a href="/hotel/suite/GBS">Grandbelu-Suite</a></li>
 		</ul>
 	</div>
 		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="margin-top:100px; margin-bottom:45px;">
@@ -41,31 +41,31 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/0d3aee2c5eed1304b40976d094d101ae.jpg" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2021/10/749cf8be65fcd1eff5e5a4220aa0f84b.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous</h5>
-        <p>Gorgeous King-Double / Gorgeous Ocean-Double / Gorgeous Ocean-Twin-Double</p>
+        <h5>Junior-Suite</h5>
+        <p>Sofa for 4people / Gown / King,Queen-size Bed / Amenity</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/60f0b6ebf7c871cafeae88282c2979ae.jpg" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2020/12/fd6f2ec15292151eefe304caedde8cec.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous King-Double </h5>
-        <p>Free Wi-Fi / 43 inch LED TV / King-size Bed / Amenity</p>
+        <h5>Junior-Suite</h5>
+        <p>Sofa for 4people / Gown / King,Queen-size Bed / Amenity</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/e26a058037a4acbac7b0a0ec3fc811a0.png" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2020/12/674bd4a21a580dd444bd5f3567d0ce0d.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous Ocean-Double</h5>
-        <p>Free Wi-Fi / Twin size Bed / Ocean-View / Amenity</p>
+       <h5>Junior-Suite</h5>
+        <p>Sofa for 4people / Gown / King,Queen-size Bed / Amenity</p>
       </div>
     </div>
 <div class="carousel-item">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/6b71d51676a08fe74acdd0efe3e58113.jpg" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2021/06/52360c918790d952beb0c241ab41dc23.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous Ocean-Twin-Double</h5>
-        <p>Free Wi-Fi / Twin Double-size Bed / Ocean-View / Amenity</p>
+        <h5>Junior-Suite</h5>
+        <p>Sofa for 4people / Gown / King,Queen-size Bed / Amenity</p>
       </div>
     </div>
 

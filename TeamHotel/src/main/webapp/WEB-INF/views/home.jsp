@@ -10,7 +10,7 @@
 </head>
 <jsp:include page="header.jsp" />
 <body>
-<div id=div_body>
+<div id=div_body style="width:80%; margin:auto; margin-top:40px; margin-bottom:-35px;">
 <video muted autoplay  controls loop id="video" >
 <source type="video/mp4" src="resources/videos/videos.mp4">
 </video>

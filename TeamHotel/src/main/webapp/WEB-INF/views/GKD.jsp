@@ -20,7 +20,7 @@
 <div class="page-title">
 <h2 style="font-weight:bold; font-size:29.5px; margin-top:15px; letter-spacing:8px; margin-left:10px;">골져스</h2>
 <h3 style="font-weight:bold; letter-spacing:17px; color:#ccc; font-size:10px; margin-left:13px; margin-top:15px;">GORGEOUS</h3>
-<h3 style="text-align:left; font-weight:bold; font-size:19px; "><a href="/hotel/roominfo">Prev</a></h3>
+<h3 style="text-align:left; font-weight:bold; font-size:19px;"><a href="/hotel/roominfo">Prev</a></h3>
 </div> 
 <hr>
 <body style="text-align:center;">
@@ -43,29 +43,29 @@
     <div class="carousel-item active">
       <img src="https://new.stjohns.co.kr/uploads/room/2022/01/0d3aee2c5eed1304b40976d094d101ae.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous</h5>
-        <p>Gorgeous King-Double / Gorgeous Ocean-Double / Gorgeous Ocean-Twin-Double</p>
+        <h5>Gorgeous King-Double</h5>
+        <p>Free Wi-Fi / 43 inch LED TV / King-size Bed / Amenity</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="https://new.stjohns.co.kr/uploads/room/2022/01/60f0b6ebf7c871cafeae88282c2979ae.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous King-Double </h5>
+        <h5>Gorgeous King-Double</h5>
         <p>Free Wi-Fi / 43 inch LED TV / King-size Bed / Amenity</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/e26a058037a4acbac7b0a0ec3fc811a0.png" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/0a4305246c5f1915808b552ea58454d3.jpg" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous Ocean-Double</h5>
-        <p>Free Wi-Fi / Twin size Bed / Ocean-View / Amenity</p>
+        <h5>Gorgeous King-Double</h5>
+        <p>Free Wi-Fi / 43 inch LED TV / King-size Bed / Amenity</p>
       </div>
     </div>
 <div class="carousel-item">
-      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/6b71d51676a08fe74acdd0efe3e58113.jpg" class="d-block w-100" alt="...">
+      <img src="https://new.stjohns.co.kr/uploads/room/2022/01/6f5167bff80e11a6944305dc331aad0b.JPG" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Gorgeous Ocean-Twin-Double</h5>
-        <p>Free Wi-Fi / Twin Double-size Bed / Ocean-View / Amenity</p>
+        <h5>Gorgeous King-Double</h5>
+        <p>Free Wi-Fi / 43 inch LED TV / King-size Bed / Amenity</p>
       </div>
     </div>
 

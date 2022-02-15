@@ -181,10 +181,22 @@ public class HomeController {
 		return "SFT";
 	}
 		
-	
 	@RequestMapping("/gorgeous")
 	public String Showgorgeous() {
 		return "gorgeous";
+	}
+	
+	@RequestMapping("/gorgeous/GKD")
+	public String ShowGKD() {
+		return "GKD";
+	}
+	@RequestMapping("/gorgeous/GOT")
+	public String ShowGOT() {
+		return "GOT";
+	}
+	@RequestMapping("/gorgeous/GOD")
+	public String ShowGOD() {
+		return "GOD";
 	}
 	
 	@RequestMapping("/suite")
@@ -192,6 +204,21 @@ public class HomeController {
 		return "suite";
 	}
 	
-	
+	@RequestMapping("/suite/ROS")
+	public String ShowROS() {
+		return "ROS";
+	}
+	@RequestMapping("/suite/JUS")
+	public String ShowJUS() {
+		return "JUS";
+	}
+	@RequestMapping("/suite/GBS")
+	public String ShowGBS() {
+		return "GBS";
+	}
+	@RequestMapping("/book")
+	public String Showbook() {
+		return "book";
+	}
 	
 }
