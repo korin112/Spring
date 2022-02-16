@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <title>roomControl</title>
 </head>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+ <link href="${path}/resources/css/Roominfo.css" rel="stylesheet" >
  <link href="${path}/resources/css/Homeinfo.css" rel="stylesheet" >
 <jsp:include page="header.jsp" />
 <body>
@@ -25,10 +27,10 @@
 	  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
 	  		id=name name=name placeholder='객실명을 입력해주세요'>
 	</div>
-		<select class="form-select" aria-label="Default select example" id=selType name=seltype size=1 style="margin-bottom:15px; padding:5px 5px 5px 12px;">
 	
+		<select class="form-select" aria-label="Default select example" id=selType name=seltype size=1 style="margin-bottom:15px; padding:5px 5px 5px 12px;">
 		</select>
-		
+	
 	<div class="input-group mb-3">
 	  <span class="input-group-text" id="inputGroup-sizing-default" style="width:109px;">Howmany</span>
 	  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
@@ -44,10 +46,11 @@
 					<button type="button" class="btn btn-secondary" id=btnDelete >Delete</button>
 					<button type="reset" class="btn btn-secondary" >Reset</button>
 		</div>
-		
+		<div class="selectfont">	
 		<select class="form-select" multiple aria-label="multiple select example" id=selRoom  size=10
 				style="margin-bottom:15px; padding:5px 5px 5px 5px;">
 		</select>
+		</div>
 </div>
 </form>
 </body>
@@ -59,15 +62,15 @@ $(document)
 		url:"/hotel/roomadd1",
 		data:{},
 		method:"GET",
-		datatype:"json",
+		dataType:"json",
 		success:function(txt){
 			for(i=0; i<txt.length; i++){
 				console.log(txt);
-				let str='<option value='+txt[i]['room_code']+'>'+
-						txt[i]['name']+','+
-						txt[i]['type']+','+
-						txt[i]['howmany']+','+
-						txt[i]['howmuch']+'</option>';
+				let str='<option value='+txt[i]['room_code']+' style="padding:5px 5px 5px 5px;">'+
+						txt[i]['name'].padEnd(15,"\u00A0")+','+
+						txt[i]['type'].padEnd(8,"\u00A0")+','+
+						txt[i]['howmany']+'명,'+
+						txt[i]['howmuch']+'원'+'</option>';
 						$('#selRoom').append(str);
 			}
 		}
@@ -77,7 +80,7 @@ $(document)
 		url:"/hotel/typeadd1",
 		data:{},
 		method:"GET",
-		datatype:"json",
+		dataType:"json",
 		success:function(txt){
 			for(i=0; i<txt.length; i++){
 				let str='<option value='+txt[i]['type_code']+'>'+
@@ -112,6 +115,12 @@ $(document)
 		}
 	})
 	return false;
+})
+.on('click','#frmRoom',function(){
+	let won=$('#howmany').val();
+	let peo=$('#howmuch').val();
+	replace(won,"");
+	replace(peo,"");
 })
 
 

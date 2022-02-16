@@ -41,7 +41,7 @@ public class HomeController {
 		String type_name = hsr.getParameter("name");
 		iHotel addtype=sqlSession.getMapper(iHotel.class); 
 		addtype.addType(type_name);
-		return "typecontrol";
+		return "redirect:/typecontrol";
 	}
 		
 	@RequestMapping("/updType")		//update typecontrol
@@ -124,7 +124,7 @@ public class HomeController {
 			iHotel updroom=sqlSession.getMapper(iHotel.class);
 			updroom.updRoom(code, name,type, howmany, howmuch);
 		}
-		return "roomcontrol";
+		return "redirect:/roomcontrol";
 	}
 	
 	@ResponseBody				// roomcontrol ajaxcall
@@ -219,6 +219,10 @@ public class HomeController {
 	@RequestMapping("/book")
 	public String Showbook() {
 		return "book";
+	}
+	@RequestMapping("/serva")
+	public String Showserva() {
+		return "serva";
 	}
 	
 }

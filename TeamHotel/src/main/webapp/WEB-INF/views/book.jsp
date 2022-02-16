@@ -15,13 +15,15 @@
 <body>
 
 <jsp:include page="header.jsp" />
-<div id=div_body style="margin-bottom:-250px; height:906px;">
-<h1 align=center style="font-size:48px; font-weight:bold; letter-spacing:11px; margin-left:-95px;">객실예약</h1> <!-- ${name} -->
-<h2 align=center; style="color:#ccc; margin-left:778px; letter-spacing:12px; font-size:24px;">Reservation</h2>
-
-
 <form action="/hotel/bookcheck" id="frmbook">
-<div style=" height:500px; width: 33%; margin-left:620px; margin-top:75px">
+<div id=div_body style="margin-bottom:-250px; height:906px;">
+<div style=" margin:auto;">
+	<h1 align=center style="font-size:48px; font-weight:bold; letter-spacing:11px; ">객실예약</h1> <!-- ${name} -->
+	<h2 align=center; style="color:#ccc; letter-spacing:12px; font-size:24px;">Reservation</h2>
+</div>
+
+
+<div style=" height:500px; width: 33%; margin:auto; margin-top:75px">
 <table>
 <tr><td>roomcode : <input type=text id=roomcode name=roomcode align=left></td></tr>
 
@@ -31,7 +33,6 @@
     <span class="input-group-text" id="inputGroup-sizing-sm" style="width:110px;">인원</span>
   </div>
   <input type="text" type=number id=howmany name=howmany class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-     
 </div>
 <div class="input-group input-group-sm mb-3">
      <div class="input-group-prepend">
@@ -62,8 +63,8 @@
 </td></tr>
    </table>
 </div>
-</form>
 </div>
+</form>
 </body>
 <jsp:include page="footer.jsp" />
 <script src='https://code.jquery.com/jquery-3.5.0.js'></script>
